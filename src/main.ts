@@ -73,3 +73,16 @@ async function getAllActresses(): Promise<Actress[]> {
     return [];
   }
 }
+
+async function getActresses(listNumber: number[]): Promise<(Actress | null)[]> {
+  try {
+    return await Promise.all(listNumber.map(getActress));
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error('Errore Sconosciuto:', error);
+    }
+    return [null];
+  }
+}
