@@ -203,3 +203,19 @@ type Actor = Person & {
   awards: [string] | [string, string];
   nationality: Nationality & 'New Zealand' | 'Hong Kong' | 'German' | 'Candian' | 'Irish';
 };
+
+async function createRandomCouple(): Promise<[Actress, Actor] | null> {
+  // let actors = await getAllActors();
+  // let actress = await getAllActresses();
+  const [actors, actress] = await Promise.all([getAllActors(), getAllActresses()]);
+  if (actors.length === 0 || actress.length === 0) {
+    return null;
+  }
+  let randomNumber1 = Math.floor(Math.random() * actors.length);
+  let randomNumber2 = Math.floor(Math.random() * actress.length);
+  return [actress[randomNumber1], actors[randomNumber2]];
+}
+
+(async () => {
+  console.log(await createRandomCouple());
+})();
